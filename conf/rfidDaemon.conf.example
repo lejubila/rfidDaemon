@@ -1,0 +1,13 @@
+# Log file
+LOG_FILE="/home/pi/rfidDaemon/log/rfidDaemin.log"
+LOG_FILE_MAX_SIZE=1048576 # 1MB
+
+# Percorso gzip
+GZIP="/bin/gzip"
+
+# Percors wc
+WC="/usr/bin/wc"
+
+# Percors mv
+MV="/bin/mv"
+
