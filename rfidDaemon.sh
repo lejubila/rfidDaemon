@@ -9,6 +9,7 @@ DIR_SCRIPT=`dirname $0`
 NAME_SCRIPT=${0##*/}
 CONFIG_ETC="/etc/rfidDaemon.conf"
 PID_FILE="/tmp/rfidDaemin.pid"
+PID_SCRIPT=$$
 
 #
 # Scrive un messaggio nel file di log
@@ -40,22 +41,11 @@ function show_usage {
 #
 function startDaemon {
 
-	if [ -f "$PID_FILE" ]; then
-		echo "Daemon is already running, use \"rfidDaemin.sh stop\" to stop de service"
-		exit 1
-	fi
-
 	if [ -n "$1" ]; then
 		LOG_FILE="$1"
 	fi
 
-	echo $$ > "$PID_FILE"
-
-	startDaemonLoop $rfid_code &
-
-}
-
-function startDaemonLoop {
+	echo $PID_SCRIPT > "$PID_FILE"
 
 	while true; do
 
@@ -135,8 +125,19 @@ fi
 
 case "$1" in
 	start) 
-		startDaemon $2
+		if [ -f "$PID_FILE" ]; then
+			echo "Daemon is already running, use \"rfidDaemin.sh stop\" to stop de service"
+			exit 1
+		fi
+
+		nohup $0 startDaemon $2 > /dev/null 2>&1 &
+		echo "Daemon is started widh pid $!"
+
 		;;
+
+	startDaemon)
+		startDaemon $2
+		;;		
 
 	stop)
 		stopDaemon
