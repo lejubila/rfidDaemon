@@ -8,7 +8,7 @@
 DIR_SCRIPT=`dirname $0`
 NAME_SCRIPT=${0##*/}
 CONFIG_ETC="/etc/rfidDaemon.conf"
-PID_FILE="/tmp/rfidDaemin.pid"
+PID_FILE="/tmp/rfidDaemon.pid"
 PID_SCRIPT=$$
 
 #
@@ -52,10 +52,14 @@ function startDaemon {
 		local rfid_code=""
 		
 		# read rfid code
-		sleep 60
-
-		rfid_launch "$1"
-
+		RFID_DRIVER="$DIR_SCRIPT/rfidDrivers/$RFID_TYPE.sh"
+		if [ -f "$RFID_DRIVER" ]; then
+			local RFID_CODE=`exec "$RFID_DRIVER"`
+			rfid_launch "$RFID_CODE"
+		else
+			echo "Driver rfid reader not found ($RFID_DRIVER)" > /tmp/rfidDaemon.err
+			sleep 5;
+		fi
 	done
 
 }
