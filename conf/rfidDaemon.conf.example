@@ -1,5 +1,5 @@
 # Type rfid reader
-RFID_TYPE="console"
+RFID_TYPE="rpi-console"
 
 # Log file
 LOG_FILE="/home/pi/rfidDaemon/log/rfidDaemin.log"
