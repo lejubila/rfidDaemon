@@ -1,5 +1,5 @@
-Create this directory scripts that must be run to the code reading RFID.
-The name of the script must be in the form:
+Create in this folder the scripts to run after a code has been read RFID code.
+The script name must be in the following format:
 
 rfid-code.sh
 
