@@ -74,7 +74,8 @@ function stopDaemon {
 		exit 1
 	fi
 
-	kill `cat "$PID_FILE"`
+	kill -9 $(list_descendants `cat "$PID_FILE"`)
+	kill -9 `cat "$PID_FILE"`
 	rm -f "$PID_FILE"
 
 }
@@ -119,6 +120,17 @@ function rfid_launch {
 
 }
 
+list_descendants ()
+{
+  local children=$(ps -o pid= --ppid "$1")
+
+  for pid in $children
+  do
+    list_descendants "$pid"
+  done
+
+  echo "$children"
+}
 
 if [ -f $CONFIG_ETC ]; then
 	. $CONFIG_ETC
@@ -130,7 +142,7 @@ fi
 case "$1" in
 	start) 
 		if [ -f "$PID_FILE" ]; then
-			echo "Daemon is already running, use \"rfidDaemin.sh stop\" to stop de service"
+			echo "Daemon is already running, use \"rfidDaemin.sh stop\" to stop the service"
 			exit 1
 		fi
 
