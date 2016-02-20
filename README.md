@@ -3,7 +3,7 @@ Simple daemon for RFID reader. Running a custom script based on the RFID code th
 
 ## Official documentation 
 
-Documentation of rfidDaemon can be found on the [www.lejubila.net/2016/01/rfiddaemon-demone-per-la-gestione-di-un-rfid-reader](http://www.lejubila.net/2016/01/rfiddaemon-demone-per-la-gestione-di-un-rfid-reader)
+Documentation of rfidDaemon can be found on the [www.lejubila.net/tag/rfiddaemon/](http://www.lejubila.net/tag/rfiddaemon/)
 
 ## License
 
